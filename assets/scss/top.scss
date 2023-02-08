@@ -1,0 +1,712 @@
+@use "mixin" as mix;
+@use "variable" as var;
+
+@include mix.fontFace;
+
+h1,
+h2 {
+    font-family: "Pacifico";
+}
+
+.btn {
+    display: inline-block;
+    color: var.$mainColor;
+    font-family: var.$mainFont;
+    background-color: var.$accentColor;
+    padding: 15px 60px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 0 #514E50;
+    transition: box-shadow .25s;
+
+    &:hover {
+        opacity: 1;
+        box-shadow: 0 0 0 #514E50;
+    }
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 65px;
+    z-index: 2;
+    padding: 15px 0;
+    transition: background-color .5s;
+
+    @include mix.mq(sp) {
+        height: 50px;
+        padding: 10px;
+    }
+
+    &.dark {
+        background-color: rgb(58, 61, 62, .5);
+    }
+
+    .header__flex-container {
+        display: flex;
+        justify-content: space-between;
+
+        .nav__container {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 7px;
+
+            li {
+                margin-left: 5vw;
+
+                a {
+                    color: var.$mainColor;
+                    text-transform: capitalize;
+                    text-shadow: 5px 2px 100px rgb(7 33 66 / 50%);
+                }
+            }
+        }
+
+        .sns-link {
+            margin-right: 40px;
+            text-shadow: 40px 20px 100px rgb(7 33 66 / 50%);
+
+            @include mix.mq(sp) {
+                height: 30px;
+                margin-right: 10px;
+
+                img {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+.section-top {
+    .bubble-area {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background-color: #309002;
+        z-index: -1;
+
+        @include mix.mq(sp) {
+            height: 500px;
+        }
+
+        .bubble {
+            background-color: #fff;
+            border-radius: 50%;
+            position: absolute;
+            animation: snowfall 8s linear;
+            z-index: -2;
+        }
+
+        @keyframes snowfall {
+            0% {
+                opacity: 0;
+                bottom: 0;
+            }
+
+            10% {
+                opacity: .2;
+                transform: translateX(10px);
+            }
+
+            30% {
+                transform: translateX(-10px);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translateX(10px);
+            }
+
+            70% {
+                transform: translateX(-10px);
+            }
+
+            90% {
+                opacity: .7;
+                transform: scale(.3, .3);
+                transform: translateX(10px);
+            }
+
+            100% {
+                opacity: 0;
+                bottom: 100vh;
+                transform: translateX(-10px);
+            }
+        }
+
+        .title-container__flex {
+            display: flex;
+            flex-direction: column-reverse;
+            height: 60vh;
+
+            @include mix.mq(sp) {
+                height: 65%;
+            }
+
+            .title-container {
+                height: auto;
+
+                h1 {
+                    color: var.$mainColor;
+                    font-size: 8rem;
+                    text-shadow: 20px 10px 100px rgb(7 33 66 / 50%);
+
+                    @include mix.mq(sp) {
+                        font-size: 5rem;
+                    }
+                }
+
+                p {
+                    color: var.$mainColor;
+                    font-size: 3rem;
+                    text-shadow: 40px 20px 100px rgb(7 33 66 / 50%);
+
+                    @include mix.mq(sp) {
+                        font-size: 2rem;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.section-about {
+    padding: 100px 80px;
+
+    @include mix.mq(sp) {
+        padding: 120px 24px 60px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+
+        @include mix.mq(sp) {
+            margin-bottom: 60px;
+        }
+    }
+
+    &__flex {
+        display: flex;
+        justify-content: center;
+
+        @include mix.mq(sp) {
+            display: block;
+        }
+
+        .about-img {
+            width: 30%;
+            min-width: 320px;
+            max-width: 440px;
+            margin-right: 10%;
+            aspect-ratio: 3/4;
+            box-shadow: 0px 63px 154px -20px rgb(7 33 66 / 50%);
+
+            @include mix.mq(sp) {
+                min-width: auto;
+                width: 70%;
+                margin: 0 auto 40px;
+                box-shadow: 20px 10px 100px -20px rgb(7 33 66 / 50%);
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .about-description {
+            width: 30%;
+            text-align: left;
+            min-width: 320px;
+
+            @include mix.mq(sp) {
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            h3 {
+                font-size: 2.4rem;
+                font-family: "Noto Sans JP";
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+.section-hobby {
+    padding: 100px 0;
+
+    @include mix.mq(sp) {
+        padding: 60px 24px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+
+        @include mix.mq(sp) {
+            margin-bottom: 60px;
+        }
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
+        @include mix.mq(sp) {
+            display: block;
+        }
+
+        li {
+            width: 30%;
+            min-width: 340px;
+            margin-bottom: 5%;
+
+            @include mix.mq(sp) {
+                width: 100%;
+                margin-bottom: 60px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .hobby-image {
+                width: 90%;
+                aspect-ratio: 4/3;
+                margin: 0 auto 20px;
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(0, 0);
+                transition: .8s ease-in;
+
+                @include mix.mq(sp) {
+                    width: 70%;
+                }
+
+                &.active {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: none;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            .hobby-title {
+                margin-bottom: 20px;
+                font-size: 2.4rem;
+                text-transform: uppercase;
+                font-family: var.$mainFont;
+            }
+
+            .hobby-description {
+                text-align: left;
+                width: 70%;
+                margin: 0 auto;
+
+                @include mix.mq(sp) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.section-skill {
+    padding: 100px 30px;
+
+    @include mix.mq(sp) {
+        padding: 60px 24px;
+    }
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 100px;
+
+        @include mix.mq(sp) {
+            margin-top: 60px;
+            display: block;
+        }
+
+        .section-skill__list {
+            width: 46%;
+            margin: 0 auto 70px;
+
+            @include mix.mq(sp) {
+                width: 100%;
+                margin-bottom: 60px;
+            }
+
+            .skill-title {
+                display: flex;
+                align-items: flex-end;
+                margin-bottom: 20px;
+
+                div {
+                    width: 50px;
+                    aspect-ratio: 1/1;
+                    margin-right: 20px;
+                    display: flex;
+                    align-items: flex-end;
+
+                    @include mix.mq(sp) {
+                        width: 35px;
+                    }
+
+                    img {
+                        width: 100%;
+                    }
+                }
+
+                h4 {
+                    font-size: 2rem;
+                    font-family: var.$mainFont;
+                }
+            }
+
+            .skill-bar-box {
+                width: 100%;
+                height: 40px;
+                background-color: #fff;
+                border-radius: 15px;
+                text-align: left;
+                position: relative;
+
+                @include mix.mq(sp) {
+                    height: 25px;
+                }
+
+
+                .skill-bar {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    height: 100%;
+                    width: 0;
+                    border-radius: 15px;
+                    background: linear-gradient(to right, #facf63, #F08275);
+                }
+
+                .skill-bar__num {
+                    position: absolute;
+                    left: 10%;
+                    top: 0;
+                    font-size: 2.4rem;
+                    font-family: var.$mainFont;
+                    z-index: 2;
+
+                    @include mix.mq(sp) {
+                        font-size: 1.8rem;
+                        top: -4px;
+                    }
+                }
+            }
+        }
+    }
+
+    img {
+        width: 100px;
+    }
+}
+
+.section-works {
+    padding: 30px 80px;
+
+    @include mix.mq(sp) {
+        padding: 60px 24px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+
+        @include mix.mq(sp) {
+            margin-bottom: 60px;
+        }
+    }
+
+    &__container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        @include mix.mq(sp) {
+            display: block;
+        }
+
+        .works-list {
+            width: 30%;
+            margin: 0 2% 70px;
+
+            @include mix.mq(sp) {
+                width: 90%;
+                margin: 0 auto 60px;
+            }
+
+            .works-image {
+                width: 100%;
+                max-width: 400px;
+                overflow: hidden;
+                display: block;
+                margin: 0 auto;
+
+                img {
+                    width: 100%;
+                    transition: all .3s;
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
+
+            .works-title {
+                font-family: var.$mainFont;
+                text-transform: uppercase;
+                margin-top: 20px;
+                color: #333;
+
+                @include mix.mq(sp) {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    }
+}
+
+.modal {
+    opacity: 0;
+    visibility: hidden;
+    position: fixed;
+    top: 120%;
+    left: 0;
+    height: 100vh;
+    overflow-y: scroll;
+    background-color: var.$mainColor;
+    z-index: 999;
+    transition: opacity .5s, visibility 0s, .5s;
+
+    &.show {
+        opacity: 1;
+        visibility: visible;
+        top: 0;
+    }
+
+    .fa-solid {
+        position: fixed;
+        top: 40px;
+        right: 40px;
+        font-size: 6rem;
+        color: #333;
+        width: 60px;
+        height: 60px;
+        background: rgb(238, 236, 232, .5);
+        z-index: 9999;
+
+        @include mix.mq(sp) {
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            font-size: 4rem;
+        }
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    .section-image {
+
+        &__background {
+            width: 100%;
+            height: 100vh;
+            background-image: url(../images/top03.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+
+            @include mix.mq(sp) {
+                height: 500px;
+            }
+
+            .background__filter {
+                background-color: rgba($color: #000000, $alpha: .6);
+                width: 100%;
+                height: 100%;
+
+                h2 {
+                    text-transform: capitalize;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    color: var.$mainColor;
+                }
+            }
+        }
+    }
+
+    .section-information {
+        padding: 100px 0;
+
+        &__wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0 140px;
+
+            @include mix.mq(sp) {
+                display: block;
+            }
+
+            @include mix.mq(sp) {
+                padding: 0 24px;
+            }
+
+            .info__title {
+                text-transform: uppercase;
+                font-size: 2rem;
+                font-family: var.$mainFont;
+                text-align: left;
+                width: 20%;
+
+                @include mix.mq(sp) {
+                    margin-bottom: 10px;
+                    width: 100%;
+                }
+
+            }
+
+            dd {
+                width: 80%;
+                text-align: left;
+                margin-bottom: 60px;
+                font-family: var.$mainFont;
+                padding-top: 5px;
+
+                &.ja {
+                    font-family: 'Noto Sans', "Helvetica Neue", "Helvetica", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Arial", "Yu Gothic", "Meiryo", sans-serif;
+
+                    p {
+                        margin-bottom: 1.6rem;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        @include mix.mq(sp) {
+                            margin-bottom: 1.2rem;
+                        }
+                    }
+                }
+
+                @include mix.mq(sp) {
+                    width: 100%;
+                }
+
+                .tool-name {
+                    font-family: var.$mainFont;
+                    text-transform: none;
+
+                    &::before {
+                        content: '\f058';
+                        font: var(--fa-font-regular);
+                        margin-right: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    .section-gallery {
+        padding: 100px 80px;
+
+        @include mix.mq(sp) {
+            padding: 20px 24px 60px;
+        }
+
+        .mockup-image {
+            width: 90%;
+            margin: 0 auto;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .comp-image__container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 150px;
+            margin-bottom: 100px;
+
+            @include mix.mq(sp) {
+                margin-top: 60px;
+                margin-bottom: 60px;
+            }
+
+            .comp-image {
+                width: 40%;
+                height: 200vw;
+                margin: 0 auto;
+                overflow: hidden;
+                box-shadow: 1px 1px 5px #333;
+
+                img {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.section-contact {
+    padding: 100px 80px;
+
+    @include mix.mq(sp) {
+        padding: 60px 24px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+
+        @include mix.mq(sp) {
+            margin-bottom: 60px;
+        }
+    }
+
+    .address {
+        font-style: normal;
+
+        i {
+            font-size: 2.5rem;
+            margin-right: 10px;
+        }
+
+        a {
+            color: #333;
+            font-size: 2.5rem;
+
+            &::before {
+                content: '\f0e0';
+                font-family: "Font Awesome 5 Free";
+                font-weight: 400;
+                color: #4B7EE8;
+                margin-right: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+//フォントフェイス
+@mixin fontFace {
+    @font-face {
+        font-family: 'Pacifico';
+        src: url(../font/Pacifico-Regular.ttf) format('truetype');
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: 'Roboto';
+        src: url(../font/Roboto-Medium.ttf) format('truetype');
+        font-display: swap;
+    }
+}
+
+//メディアクエリ
+$breakpoint: (
+    sp: 'screen and (max-width: 767px)'
+);
+
+@mixin mq($bp) {
+    @media #{map-get($breakpoint, $bp)} {
+        @content
+    }
+}

@@ -1,0 +1,14 @@
+<svg id="instagram" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <g id="長方形_15" data-name="長方形 15" fill="none" stroke="#f6f8f9" stroke-width="4">
+    <rect width="40" height="40" rx="10" stroke="none"/>
+    <rect x="2" y="2" width="36" height="36" rx="8" fill="none"/>
+  </g>
+  <g id="楕円形_1" data-name="楕円形 1" transform="translate(10 10)" fill="none" stroke="#f6f8f9" stroke-width="4">
+    <circle cx="10.5" cy="10.5" r="10.5" stroke="none"/>
+    <circle cx="10.5" cy="10.5" r="8.5" fill="none"/>
+  </g>
+  <g id="楕円形_2" data-name="楕円形 2" transform="translate(28 7)" fill="none" stroke="#f6f8f9" stroke-width="1">
+    <circle cx="2.5" cy="2.5" r="2.5" stroke="none"/>
+    <circle cx="2.5" cy="2.5" r="2" fill="none"/>
+  </g>
+</svg>

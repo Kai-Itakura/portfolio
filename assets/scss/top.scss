@@ -65,9 +65,23 @@ h2 {
             margin-right: 40px;
             text-shadow: 40px 20px 100px rgb(7 33 66 / 50%);
 
+            a:first-child {
+                margin-right: 10px;
+            }
+
+            .fa-github {
+                font-size: 4rem;
+                color: #efece9;
+                vertical-align: bottom;
+            }
+
             @include mix.mq(sp) {
                 height: 30px;
                 margin-right: 10px;
+
+                .fa-github {
+                    font-size: 3rem;
+                }
 
                 img {
                     height: 100%;

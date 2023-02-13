@@ -66,10 +66,21 @@ h2 {
   margin-right: 40px;
   text-shadow: 40px 20px 100px rgba(7, 33, 66, 0.5);
 }
+.header .header__flex-container .sns-link a:first-child {
+  margin-right: 10px;
+}
+.header .header__flex-container .sns-link .fa-github {
+  font-size: 4rem;
+  color: #efece9;
+  vertical-align: bottom;
+}
 @media screen and (max-width: 767px) {
   .header .header__flex-container .sns-link {
     height: 30px;
     margin-right: 10px;
+  }
+  .header .header__flex-container .sns-link .fa-github {
+    font-size: 3rem;
   }
   .header .header__flex-container .sns-link img {
     height: 100%;

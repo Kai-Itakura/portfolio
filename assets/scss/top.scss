@@ -188,11 +188,11 @@ h2 {
     }
 }
 
-.section-about {
-    padding: 100px 80px;
+.section-works {
+    padding: 100px 80px 10px;
 
     @include mix.mq(sp) {
-        padding: 120px 24px 60px;
+        padding: 120px 24px 0;
     }
 
     h2 {
@@ -203,134 +203,49 @@ h2 {
         }
     }
 
-    &__flex {
+    &__container {
         display: flex;
-        justify-content: center;
-
-        @include mix.mq(sp) {
-            display: block;
-        }
-
-        .about-img {
-            width: 30%;
-            min-width: 320px;
-            max-width: 440px;
-            margin-right: 10%;
-            aspect-ratio: 3/4;
-            box-shadow: 0px 63px 154px -20px rgb(7 33 66 / 50%);
-
-            @include mix.mq(sp) {
-                min-width: auto;
-                width: 70%;
-                margin: 0 auto 40px;
-                box-shadow: 20px 10px 100px -20px rgb(7 33 66 / 50%);
-            }
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .about-description {
-            width: 30%;
-            text-align: left;
-            min-width: 320px;
-
-            @include mix.mq(sp) {
-                margin: 0 auto;
-                width: 100%;
-            }
-
-            h3 {
-                font-size: 2.4rem;
-                font-family: "Noto Sans JP";
-                margin-bottom: 20px;
-            }
-        }
-    }
-}
-
-.section-hobby {
-    padding: 100px 0;
-
-    @include mix.mq(sp) {
-        padding: 60px 24px;
-    }
-
-    h2 {
-        margin-bottom: 100px;
-
-        @include mix.mq(sp) {
-            margin-bottom: 60px;
-        }
-    }
-
-    ul {
-        display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         flex-wrap: wrap;
 
         @include mix.mq(sp) {
             display: block;
         }
 
-        li {
+        .works-list {
             width: 30%;
-            min-width: 340px;
-            margin-bottom: 5%;
+            margin: 0 2% 70px;
 
             @include mix.mq(sp) {
-                width: 100%;
-                margin-bottom: 60px;
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
+                width: 90%;
+                margin: 0 auto 60px;
             }
 
-            .hobby-image {
-                width: 90%;
-                aspect-ratio: 4/3;
-                margin: 0 auto 20px;
-                opacity: 0;
-                visibility: hidden;
-                transform: scale(0, 0);
-                transition: .8s ease-in;
-
-                @include mix.mq(sp) {
-                    width: 70%;
-                }
-
-                &.active {
-                    opacity: 1;
-                    visibility: visible;
-                    transform: none;
-                }
+            .works-image {
+                width: 100%;
+                max-width: 400px;
+                overflow: hidden;
+                display: block;
+                margin: 0 auto;
 
                 img {
                     width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 50%;
+                    transition: all .3s;
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
                 }
             }
 
-            .hobby-title {
-                margin-bottom: 20px;
-                font-size: 2.4rem;
-                text-transform: uppercase;
+            .works-title {
                 font-family: var.$mainFont;
-            }
-
-            .hobby-description {
-                text-align: left;
-                width: 70%;
-                margin: 0 auto;
+                text-transform: uppercase;
+                margin-top: 20px;
+                color: #333;
 
                 @include mix.mq(sp) {
-                    width: 100%;
+                    font-size: 1.6rem;
                 }
             }
         }
@@ -338,10 +253,10 @@ h2 {
 }
 
 .section-skill {
-    padding: 100px 30px;
+    padding: 100px 30px 10px;
 
     @include mix.mq(sp) {
-        padding: 60px 24px;
+        padding: 60px 24px 0;
     }
 
     &__container {
@@ -436,8 +351,8 @@ h2 {
     }
 }
 
-.section-works {
-    padding: 30px 80px;
+.section-about {
+    padding: 100px 80px;
 
     @include mix.mq(sp) {
         padding: 60px 24px;
@@ -451,49 +366,134 @@ h2 {
         }
     }
 
-    &__container {
+    &__flex {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+
+        @include mix.mq(sp) {
+            display: block;
+        }
+
+        .about-img {
+            width: 30%;
+            min-width: 320px;
+            max-width: 440px;
+            margin-right: 10%;
+            aspect-ratio: 3/4;
+            box-shadow: 0px 63px 154px -20px rgb(7 33 66 / 50%);
+
+            @include mix.mq(sp) {
+                min-width: auto;
+                width: 70%;
+                margin: 0 auto 40px;
+                box-shadow: 20px 10px 100px -20px rgb(7 33 66 / 50%);
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .about-description {
+            width: 30%;
+            text-align: left;
+            min-width: 320px;
+
+            @include mix.mq(sp) {
+                margin: 0 auto;
+                width: 100%;
+            }
+
+            h3 {
+                font-size: 2.4rem;
+                font-family: "Noto Sans JP";
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+.section-hobby {
+    padding: 100px 0 10px;
+
+    @include mix.mq(sp) {
+        padding: 60px 24px;
+    }
+
+    h2 {
+        margin-bottom: 100px;
+
+        @include mix.mq(sp) {
+            margin-bottom: 60px;
+        }
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-around;
         flex-wrap: wrap;
 
         @include mix.mq(sp) {
             display: block;
         }
 
-        .works-list {
+        li {
             width: 30%;
-            margin: 0 2% 70px;
+            min-width: 340px;
+            margin-bottom: 5%;
 
             @include mix.mq(sp) {
-                width: 90%;
-                margin: 0 auto 60px;
-            }
-
-            .works-image {
                 width: 100%;
-                max-width: 400px;
-                overflow: hidden;
-                display: block;
-                margin: 0 auto;
+                margin-bottom: 60px;
 
-                img {
-                    width: 100%;
-                    transition: all .3s;
-
-                    &:hover {
-                        transform: scale(1.1);
-                    }
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
 
-            .works-title {
-                font-family: var.$mainFont;
-                text-transform: uppercase;
-                margin-top: 20px;
-                color: #333;
+            .hobby-image {
+                width: 90%;
+                aspect-ratio: 4/3;
+                margin: 0 auto 20px;
+                opacity: 0;
+                visibility: hidden;
+                transform: scale(0, 0);
+                transition: .8s ease-in;
 
                 @include mix.mq(sp) {
-                    font-size: 1.6rem;
+                    width: 70%;
+                }
+
+                &.active {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: none;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+            }
+
+            .hobby-title {
+                margin-bottom: 20px;
+                font-size: 2.4rem;
+                text-transform: uppercase;
+                font-family: var.$mainFont;
+            }
+
+            .hobby-description {
+                text-align: left;
+                width: 70%;
+                margin: 0 auto;
+
+                @include mix.mq(sp) {
+                    width: 100%;
                 }
             }
         }
@@ -713,6 +713,10 @@ h2 {
         a {
             color: #333;
             font-size: 2.5rem;
+
+            @include mix.mq(sp) {
+                font-size: 1.8rem;
+            }
 
             &::before {
                 content: '\f0e0';

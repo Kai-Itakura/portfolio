@@ -205,159 +205,74 @@ h2 {
   }
 }
 
-.section-about {
-  padding: 100px 80px;
+.section-works {
+  padding: 100px 80px 10px;
 }
 @media screen and (max-width: 767px) {
-  .section-about {
-    padding: 120px 24px 60px;
+  .section-works {
+    padding: 120px 24px 0;
   }
 }
-.section-about h2 {
+.section-works h2 {
   margin-bottom: 100px;
 }
 @media screen and (max-width: 767px) {
-  .section-about h2 {
+  .section-works h2 {
     margin-bottom: 60px;
   }
 }
-.section-about__flex {
+.section-works__container {
   display: flex;
-  justify-content: center;
-}
-@media screen and (max-width: 767px) {
-  .section-about__flex {
-    display: block;
-  }
-}
-.section-about__flex .about-img {
-  width: 30%;
-  min-width: 320px;
-  max-width: 440px;
-  margin-right: 10%;
-  aspect-ratio: 3/4;
-  box-shadow: 0px 63px 154px -20px rgba(7, 33, 66, 0.5);
-}
-@media screen and (max-width: 767px) {
-  .section-about__flex .about-img {
-    min-width: auto;
-    width: 70%;
-    margin: 0 auto 40px;
-    box-shadow: 20px 10px 100px -20px rgba(7, 33, 66, 0.5);
-  }
-}
-.section-about__flex .about-img img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-.section-about__flex .about-description {
-  width: 30%;
-  text-align: left;
-  min-width: 320px;
-}
-@media screen and (max-width: 767px) {
-  .section-about__flex .about-description {
-    margin: 0 auto;
-    width: 100%;
-  }
-}
-.section-about__flex .about-description h3 {
-  font-size: 2.4rem;
-  font-family: "Noto Sans JP";
-  margin-bottom: 20px;
-}
-
-.section-hobby {
-  padding: 100px 0;
-}
-@media screen and (max-width: 767px) {
-  .section-hobby {
-    padding: 60px 24px;
-  }
-}
-.section-hobby h2 {
-  margin-bottom: 100px;
-}
-@media screen and (max-width: 767px) {
-  .section-hobby h2 {
-    margin-bottom: 60px;
-  }
-}
-.section-hobby ul {
-  display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 767px) {
-  .section-hobby ul {
+  .section-works__container {
     display: block;
   }
 }
-.section-hobby ul li {
+.section-works__container .works-list {
   width: 30%;
-  min-width: 340px;
-  margin-bottom: 5%;
+  margin: 0 2% 70px;
 }
 @media screen and (max-width: 767px) {
-  .section-hobby ul li {
-    width: 100%;
-    margin-bottom: 60px;
-  }
-  .section-hobby ul li:last-child {
-    margin-bottom: 0;
+  .section-works__container .works-list {
+    width: 90%;
+    margin: 0 auto 60px;
   }
 }
-.section-hobby ul li .hobby-image {
-  width: 90%;
-  aspect-ratio: 4/3;
-  margin: 0 auto 20px;
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(0, 0);
-  transition: 0.8s ease-in;
-}
-@media screen and (max-width: 767px) {
-  .section-hobby ul li .hobby-image {
-    width: 70%;
-  }
-}
-.section-hobby ul li .hobby-image.active {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-}
-.section-hobby ul li .hobby-image img {
+.section-works__container .works-list .works-image {
   width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 50%;
-}
-.section-hobby ul li .hobby-title {
-  margin-bottom: 20px;
-  font-size: 2.4rem;
-  text-transform: uppercase;
-  font-family: "Roboto", sans-serif;
-}
-.section-hobby ul li .hobby-description {
-  text-align: left;
-  width: 70%;
+  max-width: 400px;
+  overflow: hidden;
+  display: block;
   margin: 0 auto;
 }
+.section-works__container .works-list .works-image img {
+  width: 100%;
+  transition: all 0.3s;
+}
+.section-works__container .works-list .works-image img:hover {
+  transform: scale(1.1);
+}
+.section-works__container .works-list .works-title {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  margin-top: 20px;
+  color: #333;
+}
 @media screen and (max-width: 767px) {
-  .section-hobby ul li .hobby-description {
-    width: 100%;
+  .section-works__container .works-list .works-title {
+    font-size: 1.6rem;
   }
 }
 
 .section-skill {
-  padding: 100px 30px;
+  padding: 100px 30px 10px;
 }
 @media screen and (max-width: 767px) {
   .section-skill {
-    padding: 60px 24px;
+    padding: 60px 24px 0;
   }
 }
 .section-skill__container {
@@ -446,65 +361,150 @@ h2 {
   width: 100px;
 }
 
-.section-works {
-  padding: 30px 80px;
+.section-about {
+  padding: 100px 80px;
 }
 @media screen and (max-width: 767px) {
-  .section-works {
+  .section-about {
     padding: 60px 24px;
   }
 }
-.section-works h2 {
+.section-about h2 {
   margin-bottom: 100px;
 }
 @media screen and (max-width: 767px) {
-  .section-works h2 {
+  .section-about h2 {
     margin-bottom: 60px;
   }
 }
-.section-works__container {
+.section-about__flex {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  justify-content: center;
 }
 @media screen and (max-width: 767px) {
-  .section-works__container {
+  .section-about__flex {
     display: block;
   }
 }
-.section-works__container .works-list {
+.section-about__flex .about-img {
   width: 30%;
-  margin: 0 2% 70px;
+  min-width: 320px;
+  max-width: 440px;
+  margin-right: 10%;
+  aspect-ratio: 3/4;
+  box-shadow: 0px 63px 154px -20px rgba(7, 33, 66, 0.5);
 }
 @media screen and (max-width: 767px) {
-  .section-works__container .works-list {
-    width: 90%;
-    margin: 0 auto 60px;
+  .section-about__flex .about-img {
+    min-width: auto;
+    width: 70%;
+    margin: 0 auto 40px;
+    box-shadow: 20px 10px 100px -20px rgba(7, 33, 66, 0.5);
   }
 }
-.section-works__container .works-list .works-image {
+.section-about__flex .about-img img {
   width: 100%;
-  max-width: 400px;
-  overflow: hidden;
-  display: block;
-  margin: 0 auto;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-.section-works__container .works-list .works-image img {
-  width: 100%;
-  transition: all 0.3s;
-}
-.section-works__container .works-list .works-image img:hover {
-  transform: scale(1.1);
-}
-.section-works__container .works-list .works-title {
-  font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  margin-top: 20px;
-  color: #333;
+.section-about__flex .about-description {
+  width: 30%;
+  text-align: left;
+  min-width: 320px;
 }
 @media screen and (max-width: 767px) {
-  .section-works__container .works-list .works-title {
-    font-size: 1.6rem;
+  .section-about__flex .about-description {
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+.section-about__flex .about-description h3 {
+  font-size: 2.4rem;
+  font-family: "Noto Sans JP";
+  margin-bottom: 20px;
+}
+
+.section-hobby {
+  padding: 100px 0 10px;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby {
+    padding: 60px 24px;
+  }
+}
+.section-hobby h2 {
+  margin-bottom: 100px;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby h2 {
+    margin-bottom: 60px;
+  }
+}
+.section-hobby ul {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby ul {
+    display: block;
+  }
+}
+.section-hobby ul li {
+  width: 30%;
+  min-width: 340px;
+  margin-bottom: 5%;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby ul li {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  .section-hobby ul li:last-child {
+    margin-bottom: 0;
+  }
+}
+.section-hobby ul li .hobby-image {
+  width: 90%;
+  aspect-ratio: 4/3;
+  margin: 0 auto 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0, 0);
+  transition: 0.8s ease-in;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby ul li .hobby-image {
+    width: 70%;
+  }
+}
+.section-hobby ul li .hobby-image.active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.section-hobby ul li .hobby-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+.section-hobby ul li .hobby-title {
+  margin-bottom: 20px;
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+}
+.section-hobby ul li .hobby-description {
+  text-align: left;
+  width: 70%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 767px) {
+  .section-hobby ul li .hobby-description {
+    width: 100%;
   }
 }
 
@@ -705,6 +705,11 @@ h2 {
 .section-contact .address a {
   color: #333;
   font-size: 2.5rem;
+}
+@media screen and (max-width: 767px) {
+  .section-contact .address a {
+    font-size: 1.8rem;
+  }
 }
 .section-contact .address a::before {
   content: "\f0e0";

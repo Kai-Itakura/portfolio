@@ -11,7 +11,7 @@
         src: url(../font/Roboto-Medium.ttf) format('truetype');
         font-display: swap;
     }
-}
+};
 
 //メディアクエリ
 $breakpoint: (
@@ -22,4 +22,4 @@ $breakpoint: (
     @media #{map-get($breakpoint, $bp)} {
         @content
     }
-}
+};

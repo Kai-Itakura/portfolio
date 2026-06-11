@@ -2,54 +2,54 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Overview
+## 概要
 
-Personal portfolio site built with Next.js 13 (Pages Router), TypeScript, and SCSS Modules. Content (work entries) is fetched from microCMS at build time. Deployed to Vercel: https://kai-itakura-portfolio.vercel.app
+Next.js 13（Pages Router）、TypeScript、SCSS Modules で構築した個人ポートフォリオサイト。コンテンツ（作品データ）はビルド時に microCMS から取得する。Vercel にデプロイ: https://kai-itakura-portfolio.vercel.app
 
-## Commands
+## コマンド
 
 ```bash
-npm run dev        # Start dev server (localhost:3000)
-npm run build      # Production build; postbuild auto-generates sitemap via next-sitemap
-npm start          # Serve the production build
+npm run dev        # 開発サーバーを起動（localhost:3000）
+npm run build      # 本番ビルド。postbuild で next-sitemap が sitemap を自動生成
+npm start          # 本番ビルドを配信
 npm run lint       # next lint
-npm run lint-fix   # eslint --fix across all js/jsx/ts/tsx
+npm run lint-fix   # 全 js/jsx/ts/tsx に eslint --fix を実行
 ```
 
-There is no test runner configured in this project.
+このプロジェクトにテストランナーは設定されていない。
 
-## Environment variables
+## 環境変数
 
-Required for the build to fetch content (set in `.env.local`, not committed):
+ビルド時のコンテンツ取得に必要（`.env.local` に設定。コミットしない）:
 
-- `SERVICE_DOMAIN` / `API_KEY` — microCMS credentials used by `lib/api.tsx`
-- `NEXT_PUBLIC_GA_ID` — Google Analytics measurement ID (read in `lib/gtag.tsx`)
+- `SERVICE_DOMAIN` / `API_KEY` — `lib/api.tsx` が使う microCMS の認証情報
+- `NEXT_PUBLIC_GA_ID` — Google Analytics の測定 ID（`lib/gtag.tsx` で読み込む）
 
-Without microCMS credentials, `getStaticProps`/`getStaticPaths` will fail at build time since all work pages are statically generated from the CMS.
+作品ページはすべて CMS から静的生成されるため、microCMS の認証情報がないと `getStaticProps`/`getStaticPaths` がビルド時に失敗する。
 
-## Architecture
+## アーキテクチャ
 
-**Data flow (CMS → static pages):** All dynamic content comes from the microCMS `works` endpoint. `lib/api.tsx` wraps the `microcms-js-sdk` client and exposes three fetchers: `getAllWorks` (list), `getAllSlugs` (for paths/pagination), and `getPostBySlug` (single work). These are only ever called from `getStaticProps`/`getStaticPaths` — there is no client-side data fetching. `pages/api/` is unused scaffolding.
+**データフロー（CMS → 静的ページ）:** 動的コンテンツはすべて microCMS の `works` エンドポイントから取得する。`lib/api.tsx` が `microcms-js-sdk` クライアントをラップし、3つのフェッチャーを公開する: `getAllWorks`（一覧）、`getAllSlugs`（パス生成・ページネーション用）、`getPostBySlug`（単一作品）。これらは `getStaticProps`/`getStaticPaths` からのみ呼ばれ、クライアントサイドのデータフェッチは存在しない。`pages/api/` は未使用の雛形。
 
-**Image blur placeholders:** Pages fetch images from microCMS, then call `getPlaiceholder` (server-side, in `getStaticProps`) to generate a base64 `blurDataURL` that is injected back onto each image object before being passed as props. The `Image` type already reserves a `blurDataURL` field for this. microCMS image host (`images.microcms-assets.io`) is allow-listed in `next.config.js`.
+**画像のブラープレースホルダー:** 各ページは microCMS から画像を取得した後、`getPlaiceholder`（`getStaticProps` 内のサーバーサイド処理）で base64 の `blurDataURL` を生成し、props として渡す前に各画像オブジェクトへ注入する。`Image` 型はこの `blurDataURL` フィールドをあらかじめ持っている。microCMS の画像ホスト（`images.microcms-assets.io`）は `next.config.js` で許可している。
 
-**Pagination:** `lib/prev-next-work.tsx` computes prev/next work from the ordered slug list. Note the ordering is intentionally reversed (prev = next index, next = previous index) and wraps to empty `{ title: '', slug: '' }` at the boundaries.
+**ページネーション:** `lib/prev-next-work.tsx` が並び順付きの slug 一覧から前後の作品を計算する。並びは意図的に逆順（prev = 次のインデックス、next = 前のインデックス）で、端では空の `{ title: '', slug: '' }` にフォールバックする。
 
-**Page shell:** `pages/_app.tsx` wraps every page in `components/layout.tsx` (Header + main + Footer), injects the Google Analytics scripts, and tracks route changes via `gtag.preview`. Every page renders its own `<Meta>` (`components/meta.tsx`) for per-page title/OG tags; site-wide defaults live in `lib/constants.tsx` (`siteMeta`).
+**ページの共通シェル:** `pages/_app.tsx` がすべてのページを `components/layout.tsx`（Header + main + Footer）でラップし、Google Analytics のスクリプトを注入し、`gtag.preview` でルート遷移を計測する。各ページは個別に `<Meta>`（`components/meta.tsx`）をレンダリングしてページごとの title/OG タグを設定する。サイト全体のデフォルト値は `lib/constants.tsx`（`siteMeta`）にある。
 
-**Components are presentational:** `components/` are stateless view components that receive typed props. Pages compose them and own all data fetching.
+**コンポーネントは表示専用:** `components/` は型付き props を受け取るステートレスな表示コンポーネント。ページがそれらを組み合わせ、データ取得をすべて担う。
 
-## Conventions
+## 規約
 
-- **Types:** All shared types live in a single file, `types/Type.ts`, and are imported by both pages and components. Add new prop/content types there.
-- **Path alias:** `@/*` maps to the repo root (configured in both `tsconfig.json` and `jsconfig.json`). Imports are inconsistent — some use `@/lib/...`, some use bare `lib/...`/`types/...` (also resolvable via `baseUrl: "."`). Both work.
-- **Styling:** Each component has a matching SCSS Module in `styles/` (e.g. `components/hero.tsx` → `styles/hero.module.scss`). Shared variables/mixins are in `styles/_variable.scss` and `styles/_mixin.scss`. The `assets/css/` directory contains stale compiled CSS and is not part of the build — edit the SCSS in `styles/`, not these.
-- **Formatting (Prettier):** no semicolons, single quotes (incl. JSX), no trailing commas, 2-space indent, 120 print width.
+- **型:** 共有する型はすべて `types/Type.ts` の1ファイルに集約され、ページとコンポーネントの両方からインポートされる。新しい props/コンテンツ型はここに追加する。
+- **パスエイリアス:** `@/*` はリポジトリルートにマップされる（`tsconfig.json` と `jsconfig.json` の両方で設定）。インポート方法は一貫しておらず、`@/lib/...` を使う箇所と、ベアな `lib/...`/`types/...`（`baseUrl: "."` で解決される）を使う箇所が混在する。どちらも動作する。
+- **スタイリング:** 各コンポーネントには対応する SCSS Module が `styles/` にある（例: `components/hero.tsx` → `styles/hero.module.scss`）。共有の変数/ミックスインは `styles/_variable.scss` と `styles/_mixin.scss`。`assets/css/` ディレクトリは古いコンパイル済み CSS でビルドには使われない。編集するのは `assets/css/` ではなく `styles/` の SCSS。
+- **フォーマット（Prettier）:** セミコロンなし、シングルクォート（JSX も）、末尾カンマなし、インデント2スペース、print width 120。
 
-## Source layout
+## ソース構成
 
-- `pages/` — routes (Pages Router): `index.tsx` (home), `about.tsx`, `works/index.tsx` (list), `works/[slug].tsx` (work detail)
-- `components/` — presentational React components
-- `lib/` — data fetching (`api.tsx`), pagination logic, analytics, constants
-- `types/Type.ts` — all shared TypeScript types
-- `styles/` — SCSS Modules + shared partials
+- `pages/` — ルート（Pages Router）: `index.tsx`（トップ）、`about.tsx`、`works/index.tsx`（一覧）、`works/[slug].tsx`（作品詳細）
+- `components/` — 表示用 React コンポーネント
+- `lib/` — データ取得（`api.tsx`）、ページネーションロジック、アナリティクス、定数
+- `types/Type.ts` — 共有 TypeScript 型のすべて
+- `styles/` — SCSS Modules と共有パーシャル

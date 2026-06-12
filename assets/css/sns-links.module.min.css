@@ -1,1 +1,0 @@
-.list{display:flex;justify-content:flex-end;gap:3vw;margin-right:40px;text-shadow:40px 20px 100px rgba(7,33,66,.5)}@media screen and (max-width: 767px){.list{margin-right:10px}}.icon{font-size:4rem;color:#efece9;z-index:200}@media screen and (max-width: 767px){.icon{font-size:3rem}}

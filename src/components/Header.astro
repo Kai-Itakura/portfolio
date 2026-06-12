@@ -1,0 +1,22 @@
+---
+import Nav from './Nav.astro'
+import SnsLinks from './SnsLinks.astro'
+---
+
+<header>
+  <div
+    id='site-header'
+    class='fixed z-[2] flex h-[65px] w-full items-center justify-between py-[15px] transition-[background-color] duration-500 max-md:h-[50px] max-md:p-2.5'
+  >
+    <Nav />
+    <SnsLinks />
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')
+
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('header-scrolled', window.scrollY > 450)
+  })
+</script>

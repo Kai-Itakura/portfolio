@@ -1,0 +1,26 @@
+---
+import HobbyList from './HobbyList.astro'
+import dance from '../assets/dance.jpg'
+import fashion from '../assets/fashion.jpg'
+import soccer from '../assets/soccer.jpg'
+---
+
+<div class='px-6 pt-[120px] pb-[60px] max-md:pt-[100px]'>
+  <ul class='flex justify-center gap-[6%] max-md:block'>
+    <HobbyList
+      src={dance}
+      title='ballroom dance'
+      desc='大学の時には勉強よりもダンスに明け暮れていました。小学生から高校まではサッカーだけしかしてこなかったのですが、大学で競技ダンスに出会い、毎日のように踊っていました。試合の成績に関しては、関西ではファイナリストになったり、タンゴという種目で優勝などの成績を収めました。'
+    />
+    <HobbyList
+      src={soccer}
+      title='soccer'
+      desc=' 大学に入るまではサッカー一筋の生活を送っていました。将来の夢はもちろんサッカー選手。頭の中はサッカーのことでいっぱいで、朝から晩までボールを蹴り続けていました。高校時代には石川県で準優勝という結果も残しました。現在も友達や先輩とサッカーやフットサルをしています。'
+    />
+    <HobbyList
+      src={fashion}
+      title='fashion'
+      desc=' 学生時代はサッカーやダンスに明け暮れていましたが、それと並行して、好きだったのがファッションです。服はもちろん、かっこいい・かわいいものやデザインが好きです。学生の頃は、欲しい洋服を買うために生活を切り詰めていた時期もありました。'
+    />
+  </ul>
+</div>

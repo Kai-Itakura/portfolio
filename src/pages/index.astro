@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content'
+import Button from '../components/Button.astro'
+import Container from '../components/Container.astro'
+import Hero from '../components/Hero.astro'
+import Posts from '../components/Posts.astro'
+import Profile from '../components/Profile.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const works = (await getCollection('works'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2)
+  .map((entry) => ({ title: entry.data.title, slug: entry.id, image: entry.data.topImage }))
+---
+
+<BaseLayout>
+  <Hero title='Kai Itakura' subtitle='Web Creator' />
+  <Container title='works'>
+    <Posts works={works} mobileSingle />
+    <Button url='/works' local btnText='More Works' />
+  </Container>
+  <Container title='about'>
+    <Profile />
+    <Button url='/about' local btnText='More About Me' />
+  </Container>
+</BaseLayout>

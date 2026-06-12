@@ -1,0 +1,29 @@
+---
+import CircleCheckIcon from '@fortawesome/fontawesome-free/svgs/regular/circle-check.svg'
+
+interface Props {
+  title: string
+  tools?: string[]
+  ja?: boolean
+}
+
+const { title, tools, ja = false } = Astro.props
+---
+
+<dt class='w-1/5 text-left font-roboto text-[20px] uppercase max-md:mb-2.5 max-md:w-full'>{title}</dt>
+<dd class={`mb-[60px] ml-0 w-4/5 pt-[5px] text-left max-md:w-full ${ja ? '' : 'font-roboto'}`}>
+  {
+    tools ? (
+      <ul>
+        {tools.map((tool) => (
+          <li class='flex items-center gap-[0.5em]'>
+            <CircleCheckIcon class='h-[1em] w-auto shrink-0' fill='currentColor' />
+            <p>{tool}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <slot />
+    )
+  }
+</dd>

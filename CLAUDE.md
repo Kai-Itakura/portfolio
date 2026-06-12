@@ -4,52 +4,52 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 概要
 
-Next.js 13（Pages Router）、TypeScript、SCSS Modules で構築した個人ポートフォリオサイト。コンテンツ（作品データ）はビルド時に microCMS から取得する。Vercel にデプロイ: https://kai-itakura-portfolio.vercel.app
+Astro 5（完全静的出力）+ Tailwind CSS v4 で構築した個人ポートフォリオサイト。JS フレームワークは不使用で、インタラクションはすべて素の `<script>` で実装している。作品データはリポジトリ内の Content Collections（Markdown）で管理し、Cloudflare Workers の静的アセット配信でホスティングする。
+
+**移行メモ:** 旧構成は Next.js 13 + microCMS + Vercel。`src/content/works/` の `sample-work-*.md` は microCMS からエクスポートした実データに差し替えるまでの仮データ（要 microCMS 認証情報）。Cloudflare への初回デプロイは未実施で、本番（https://kai-itakura-portfolio.vercel.app）は移行前の旧サイトが稼働中。残タスクはリポジトリの issue を参照。
 
 ## コマンド
 
 ```bash
-npm run dev        # 開発サーバーを起動（localhost:3000）
-npm run build      # 本番ビルド。postbuild で next-sitemap が sitemap を自動生成
-npm start          # 本番ビルドを配信
-npm run lint       # next lint
-npm run lint-fix   # 全 js/jsx/ts/tsx に eslint --fix を実行
+npm run dev        # 開発サーバーを起動（localhost:4321）
+npm run build      # 本番ビルド（dist/ に出力。sitemap も自動生成）
+npm run preview    # ビルド結果をローカル配信
+npm run deploy     # ビルドして wrangler で Cloudflare にデプロイ
 ```
 
-このプロジェクトにテストランナーは設定されていない。
+テストランナーと lint は未設定。ビルドが通ることが検証手段。
 
 ## 環境変数
 
-ビルド時のコンテンツ取得に必要（`.env.local` に設定。コミットしない）:
-
-- `SERVICE_DOMAIN` / `API_KEY` — `lib/api.tsx` が使う microCMS の認証情報
-- `NEXT_PUBLIC_GA_ID` — Google Analytics の測定 ID（`lib/gtag.tsx` で読み込む）
-
-作品ページはすべて CMS から静的生成されるため、microCMS の認証情報がないと `getStaticProps`/`getStaticPaths` がビルド時に失敗する。
+- `PUBLIC_GA_ID` — Google Analytics の測定 ID（任意。未設定なら GA スクリプト自体が出力されない）。`.env` に設定する
 
 ## アーキテクチャ
 
-**データフロー（CMS → 静的ページ）:** 動的コンテンツはすべて microCMS の `works` エンドポイントから取得する。`lib/api.tsx` が `microcms-js-sdk` クライアントをラップし、3つのフェッチャーを公開する: `getAllWorks`（一覧）、`getAllSlugs`（パス生成・ページネーション用）、`getPostBySlug`（単一作品）。これらは `getStaticProps`/`getStaticPaths` からのみ呼ばれ、クライアントサイドのデータフェッチは存在しない。`pages/api/` は未使用の雛形。
+**データフロー:** 作品データは `src/content/works/*.md`（Content Collections）。スキーマは `src/content.config.ts` で定義され、画像フィールドは `image()` ヘルパーで `src/assets/works/` 内のファイルを参照する。ファイル名（id）がそのまま URL スラッグになり、`order` フィールドで表示順を制御する。Markdown 本文は作品詳細ページの about 欄に表示される。
 
-**画像のブラープレースホルダー:** 各ページは microCMS から画像を取得した後、`getPlaiceholder`（`getStaticProps` 内のサーバーサイド処理）で base64 の `blurDataURL` を生成し、props として渡す前に各画像オブジェクトへ注入する。`Image` 型はこの `blurDataURL` フィールドをあらかじめ持っている。microCMS の画像ホスト（`images.microcms-assets.io`）は `next.config.js` で許可している。
+**ページ構成:** `src/pages/` の4ルート（`index` / `about` / `works/index` / `works/[slug]`）。各ページは `BaseLayout.astro` でラップされ、`pageTitle`/`pageDesc` props でページごとの title/OG タグを設定する。サイト共通のメタ情報は `src/lib/constants.ts`（`siteMeta`）。
 
-**ページネーション:** `lib/prev-next-work.tsx` が並び順付きの slug 一覧から前後の作品を計算する。並びは意図的に逆順（prev = 次のインデックス、next = 前のインデックス）で、端では空の `{ title: '', slug: '' }` にフォールバックする。
+**前後の作品ナビゲーション:** `works/[slug].astro` の `getStaticPaths` 内で計算。並びは旧サイトの仕様を踏襲して意図的に逆順（prev = 次のインデックス、next = 前のインデックス）で、端では空の `{ title: '', slug: '' }` になりリンクが非表示になる。
 
-**ページの共通シェル:** `pages/_app.tsx` がすべてのページを `components/layout.tsx`（Header + main + Footer）でラップし、Google Analytics のスクリプトを注入し、`gtag.preview` でルート遷移を計測する。各ページは個別に `<Meta>`（`components/meta.tsx`）をレンダリングしてページごとの title/OG タグを設定する。サイト全体のデフォルト値は `lib/constants.tsx`（`siteMeta`）にある。
+**インタラクション（全部素の script）:** ハンバーガーメニュー（`Nav.astro`、`data-open` 属性 + Tailwind の `group-data-[open=true]:` で状態をスタイリング）、スクロール時のヘッダー背景（`Header.astro` が `.header-scrolled` クラスを付け外し）、Hero のバブルアニメーション（`Hero.astro` が `.bubble` 要素を生成）、スキルバーのカウントアップ（`Skills.astro`、IntersectionObserver）。`.header-scrolled` と `.bubble` の実体は `global.css` にある。
 
-**コンポーネントは表示専用:** `components/` は型付き props を受け取るステートレスな表示コンポーネント。ページがそれらを組み合わせ、データ取得をすべて担う。
+**アイコン:** `@fortawesome/fontawesome-free` の SVG ファイルを Astro の SVG コンポーネントとして直接インポートしている（例: `import GithubIcon from '@fortawesome/fontawesome-free/svgs/brands/github.svg'`）。色は `fill='currentColor'` + 親の `text-*` で制御。
+
+**画像:** すべて `astro:assets` の `<Image>` でビルド時に最適化（webp 変換 + srcset 生成）。ソース画像は `src/assets/`、スキルアイコンの SVG だけは `public/` に置き `<img>` で参照する。
 
 ## 規約
 
-- **型:** 共有する型はすべて `types/Type.ts` の1ファイルに集約され、ページとコンポーネントの両方からインポートされる。新しい props/コンテンツ型はここに追加する。
-- **パスエイリアス:** `@/*` はリポジトリルートにマップされる（`tsconfig.json` と `jsconfig.json` の両方で設定）。インポート方法は一貫しておらず、`@/lib/...` を使う箇所と、ベアな `lib/...`/`types/...`（`baseUrl: "."` で解決される）を使う箇所が混在する。どちらも動作する。
-- **スタイリング:** 各コンポーネントには対応する SCSS Module が `styles/` にある（例: `components/hero.tsx` → `styles/hero.module.scss`）。共有の変数/ミックスインは `styles/_variable.scss` と `styles/_mixin.scss`。`assets/css/` ディレクトリは古いコンパイル済み CSS でビルドには使われない。編集するのは `assets/css/` ではなく `styles/` の SCSS。
-- **フォーマット（Prettier）:** セミコロンなし、シングルクォート（JSX も）、末尾カンマなし、インデント2スペース、print width 120。
+- **スタイリング:** Tailwind CSS v4。設定ファイルはなく、テーマトークン（`--color-main`、`--color-accent`、`--font-pacifico` 等）は `src/styles/global.css` の `@theme` ブロックで定義。要素セレクタへのベーススタイル（body のフォント・背景、h2 の Pacifico、a の hover 等）も同ファイルの `@layer base` にある。旧 SCSS のピクセル値は `text-[80px]` のような arbitrary value でそのまま移植している
+- **ブレークポイント:** モバイル（767px 以下）のスタイルは `max-md:` プレフィックス。旧 SCSS の `mq(sp)` に対応する
+- **フォーマット（Prettier）:** セミコロンなし、シングルクォート（JSX も）、末尾カンマなし、インデント2スペース、print width 120
+- **デプロイ:** `wrangler.jsonc` で `dist/` を Cloudflare Workers の静的アセットとして配信。`astro.config.mjs` の `site` は OG/canonical/sitemap の URL に使われるため、Cloudflare の本番ドメインが決まったら更新が必要
 
 ## ソース構成
 
-- `pages/` — ルート（Pages Router）: `index.tsx`（トップ）、`about.tsx`、`works/index.tsx`（一覧）、`works/[slug].tsx`（作品詳細）
-- `components/` — 表示用 React コンポーネント
-- `lib/` — データ取得（`api.tsx`）、ページネーションロジック、アナリティクス、定数
-- `types/Type.ts` — 共有 TypeScript 型のすべて
-- `styles/` — SCSS Modules と共有パーシャル
+- `src/pages/` — ルート: `index.astro`（トップ）、`about.astro`、`works/index.astro`（一覧）、`works/[slug].astro`（作品詳細）
+- `src/components/` — 表示用 Astro コンポーネント
+- `src/layouts/BaseLayout.astro` — HTML シェル（head の meta/OG/GA + Header/Footer）
+- `src/content/works/` — 作品データ（Markdown）
+- `src/content.config.ts` — Content Collections のスキーマ
+- `src/assets/` — ビルド時最適化される画像
+- `src/styles/global.css` — Tailwind エントリポイント + テーマ + ベーススタイル

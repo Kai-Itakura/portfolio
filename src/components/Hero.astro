@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string
+  subtitle?: string
+  backGround?: 'orange' | 'blue'
+}
+
+const { title, subtitle, backGround } = Astro.props
+
+const bgClass = backGround === 'orange' ? 'bg-[#F08774]' : backGround === 'blue' ? 'bg-[cadetblue]' : 'bg-[#5BAE6D]'
+---
+
+<div
+  id='bubble-area'
+  class={`relative top-0 left-0 -z-[1] h-screen w-full overflow-hidden max-md:h-[500px] ${bgClass}`}
+>
+  <div class='flex h-[60vh] flex-col-reverse max-md:h-[65%]'>
+    <div>
+      <h1 class='text-[80px] text-main [text-shadow:20px_10px_100px_rgb(7_33_66_/_0.5)] max-md:text-[50px]'>
+        {title}
+      </h1>
+      {
+        subtitle && (
+          <p class='text-center text-[30px] text-main [text-shadow:40px_20px_100px_rgb(7_33_66_/_0.5)] max-md:text-[20px]'>
+            {subtitle}
+          </p>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<script>
+  const bubbleArea = document.querySelector('#bubble-area')
+
+  const createBubble = () => {
+    if (!bubbleArea) return
+
+    const bubble = document.createElement('span')
+    bubble.className = 'bubble'
+
+    const minSize = 10
+    const maxSize = 40
+    const bubbleSize = Math.random() * (maxSize - minSize) + minSize
+
+    bubble.style.width = `${bubbleSize}px`
+    bubble.style.height = `${bubbleSize}px`
+    bubble.style.left = `${Math.random() * 100}%`
+    bubble.style.bottom = `${Math.random() * 100}%`
+
+    bubbleArea.appendChild(bubble)
+
+    setTimeout(() => {
+      bubble.remove()
+    }, 8000)
+  }
+
+  setInterval(createBubble, 100)
+</script>

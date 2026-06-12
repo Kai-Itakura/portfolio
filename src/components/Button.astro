@@ -1,0 +1,29 @@
+---
+import ExternalLinkIcon from '@fortawesome/fontawesome-free/svgs/solid/arrow-up-right-from-square.svg'
+import ForwardIcon from '@fortawesome/fontawesome-free/svgs/solid/forward.svg'
+
+interface Props {
+  url: string
+  local?: boolean
+  btnText?: string
+}
+
+const { url, local = false, btnText } = Astro.props
+
+const btnClass =
+  'mx-auto flex w-fit cursor-pointer items-center justify-center gap-[0.5em] rounded-[5px] bg-accent px-[60px] py-[15px] font-roboto text-main [box-shadow:5px_5px_0_#514E50] transition-shadow duration-[250ms] hover:opacity-100 hover:[box-shadow:0_0_0_#514E50]'
+---
+
+{
+  local ? (
+    <a class={`${btnClass} mb-[60px]`} href={url}>
+      <span>{btnText}</span>
+      <ForwardIcon class='h-[1em] w-auto' fill='currentColor' />
+    </a>
+  ) : (
+    <a class={btnClass} href={url} target='_blank' rel='noopener noreferrer'>
+      <span>Visit Website</span>
+      <ExternalLinkIcon class='h-[1em] w-auto' fill='currentColor' />
+    </a>
+  )
+}

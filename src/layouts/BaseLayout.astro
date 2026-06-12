@@ -1,0 +1,73 @@
+---
+import Footer from '../components/Footer.astro'
+import Header from '../components/Header.astro'
+import ogImage from '../assets/portfolio.png'
+import { siteMeta } from '../lib/constants'
+import '../styles/global.css'
+
+interface Props {
+  pageTitle?: string
+  pageDesc?: string
+}
+
+const { pageTitle, pageDesc } = Astro.props
+const { siteTitle, siteDesc, siteLang, siteLocale, siteType, appleTouchIcon, siteIcon } = siteMeta
+
+const title = pageTitle ? `${pageTitle} | ${siteTitle}` : siteTitle
+const desc = pageDesc ?? siteDesc
+const url = new URL(Astro.url.pathname, Astro.site)
+const imgUrl = new URL(ogImage.src, Astro.site)
+const gaId = import.meta.env.PUBLIC_GA_ID
+---
+
+<!doctype html>
+<html lang={siteLang}>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <title>{title}</title>
+    <meta name='description' content={desc} />
+    <link rel='canonical' href={url} />
+    <meta property='og:title' content={title} />
+    <meta property='og:description' content={desc} />
+    <meta property='og:url' content={url} />
+    <meta property='og:site_name' content={siteTitle} />
+    <meta property='og:type' content={siteType} />
+    <meta property='og:locale' content={siteLocale} />
+    <meta property='og:image' content={imgUrl} />
+    <meta property='og:image:width' content={ogImage.width.toString()} />
+    <meta property='og:image:height' content={ogImage.height.toString()} />
+    <meta name='twitter:card' content='summary_large_image' />
+    <meta name='google-site-verification' content='NNNsuX41_1FbiLGiscTOFlclVFO3CYMPXODEQW-BQ_E' />
+    <link rel='icon' href={siteIcon} />
+    <link rel='apple-touch-icon' href={appleTouchIcon} />
+    <link rel='sitemap' href='/sitemap-index.xml' />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@700&family=Pacifico&family=Roboto:wght@500&display=swap'
+      rel='stylesheet'
+    />
+    {
+      gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+          <script
+            is:inline
+            set:html={`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${gaId}');
+            `}
+          />
+        </>
+      )
+    }
+  </head>
+  <body>
+    <Header />
+    <main class='overflow-hidden'>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

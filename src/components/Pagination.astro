@@ -1,0 +1,34 @@
+---
+import ChevronLeftIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-left.svg'
+import ChevronRightIcon from '@fortawesome/fontawesome-free/svgs/solid/chevron-right.svg'
+
+interface Props {
+  prev: { title: string; slug: string }
+  next: { title: string; slug: string }
+}
+
+const { prev, next } = Astro.props
+---
+
+<ul class='flex justify-between gap-4 px-20 max-md:px-6'>
+  {
+    next.title && next.slug && (
+      <li>
+        <a class='flex items-center gap-[0.5em]' href={`/works/${next.slug}`}>
+          <ChevronLeftIcon class='h-[1em] w-auto' fill='currentColor' />
+          <span>{next.title}</span>
+        </a>
+      </li>
+    )
+  }
+  {
+    prev.title && prev.slug && (
+      <li class='ml-auto'>
+        <a class='flex items-center gap-[0.5em]' href={`/works/${prev.slug}`}>
+          <span>{prev.title}</span>
+          <ChevronRightIcon class='h-[1em] w-auto' fill='currentColor' />
+        </a>
+      </li>
+    )
+  }
+</ul>

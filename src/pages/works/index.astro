@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content'
+import Hero from '../../components/Hero.astro'
+import Posts from '../../components/Posts.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const works = (await getCollection('works'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => ({ title: entry.data.title, slug: entry.id, image: entry.data.topImage }))
+---
+
+<BaseLayout pageTitle='Works' pageDesc='これまでに作った作品一覧'>
+  <Hero title='Works' backGround='orange' />
+  <Posts works={works} />
+</BaseLayout>

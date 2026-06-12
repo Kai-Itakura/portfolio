@@ -1,0 +1,53 @@
+---
+import Bar from './Bar.astro'
+---
+
+<div class='px-[30px] pt-[120px] pb-[60px] max-md:px-6 max-md:pt-[100px]'>
+  <ul class='grid grid-cols-2 gap-[70px] max-md:grid-cols-1 max-md:gap-[60px]'>
+    <Bar title='HTML/CSS' src='/html-icon.svg' dataPer={80} />
+    <Bar title='Next.js' src='/nextjs.svg' dataPer={70} />
+    <Bar title='React' src='/react.svg' dataPer={60} />
+    <Bar title='JavaScript' src='/javascript-icon.svg' dataPer={70} />
+    <Bar title='TypeScript' src='/typescript-icon.svg' dataPer={60} />
+    <Bar title='Sass' src='/sass-icon.svg' dataPer={70} />
+    <Bar title='Illustrator' src='/illustrator-icon.svg' dataPer={60} />
+    <Bar title='Photoshop' src='/photoshop-icon.svg' dataPer={60} />
+    <Bar title='XD' src='/xd-icon.svg' dataPer={70} />
+  </ul>
+</div>
+
+<script>
+  const bars = [...document.querySelectorAll<HTMLElement>('[data-percentage]')]
+  const nums = [...document.querySelectorAll<HTMLElement>('[data-num]')]
+
+  const animate = (bar: HTMLElement, num: HTMLElement) => {
+    const percentage = Number(bar.dataset.percentage)
+    let count = 0
+
+    const intervalId = setInterval(() => {
+      count++
+      bar.style.width = `${count}%`
+      num.textContent = `${count}%`
+
+      if (count >= percentage) {
+        clearInterval(intervalId)
+      }
+    }, 20)
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue
+
+        observer.unobserve(entry.target)
+        const bar = entry.target as HTMLElement
+        const num = nums[bars.indexOf(bar)]
+        if (num) animate(bar, num)
+      }
+    },
+    { threshold: 1 }
+  )
+
+  bars.forEach((bar) => observer.observe(bar))
+</script>

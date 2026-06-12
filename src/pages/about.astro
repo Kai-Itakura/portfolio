@@ -1,0 +1,21 @@
+---
+import Container from '../components/Container.astro'
+import Hero from '../components/Hero.astro'
+import Hobby from '../components/Hobby.astro'
+import Profile from '../components/Profile.astro'
+import Skills from '../components/Skills.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout pageTitle='About'>
+  <Hero title='About' subtitle='私について' backGround='blue' />
+  <Container title='profile'>
+    <Profile />
+  </Container>
+  <Container title='skills'>
+    <Skills />
+  </Container>
+  <Container title='hobby'>
+    <Hobby />
+  </Container>
+</BaseLayout>

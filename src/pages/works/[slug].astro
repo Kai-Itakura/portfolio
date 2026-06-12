@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content'
+import Pagination from '../../components/Pagination.astro'
+import WorksBody from '../../components/WorksBody.astro'
+import WorksHeader from '../../components/WorksHeader.astro'
+import WorksImage from '../../components/WorksImage.astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export const getStaticPaths = async () => {
+  const works = (await getCollection('works')).sort((a, b) => a.data.order - b.data.order)
+
+  return works.map((entry, index) => {
+    // 元サイトの仕様: prev = 次のインデックス、next = 前のインデックス（端は空でリンク非表示）
+    const empty = { title: '', slug: '' }
+    const prevEntry = works[index + 1]
+    const nextEntry = works[index - 1]
+
+    return {
+      params: { slug: entry.id },
+      props: {
+        entry,
+        prev: prevEntry ? { title: prevEntry.data.title, slug: prevEntry.id } : empty,
+        next: nextEntry ? { title: nextEntry.data.title, slug: nextEntry.id } : empty
+      }
+    }
+  })
+}
+
+const { entry, prev, next } = Astro.props
+const { title, tools, time, url, lang, heroImage, mockUpImage, image1, image2 } = entry.data
+const { Content } = await render(entry)
+const metaDesc = entry.body ? `${entry.body.slice(0, 80)}...` : title
+---
+
+<BaseLayout pageTitle={title} pageDesc={metaDesc}>
+  <WorksHeader title={title} heroImage={heroImage} lang={lang} />
+  <WorksBody title={title} tools={tools} time={time} url={url}>
+    <Content />
+  </WorksBody>
+  <WorksImage mockUpImage={mockUpImage} image1={image1} image2={image2} url={url} />
+  <Pagination prev={prev} next={next} />
+</BaseLayout>

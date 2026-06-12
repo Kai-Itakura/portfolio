@@ -1,1 +1,0 @@
-.wrapper{padding:120px 30px 60px}@media screen and (max-width: 767px){.wrapper{padding:100px 24px 60px}}.list{display:grid;grid-template-columns:1fr 1fr;justify-content:space-between;gap:70px}@media screen and (max-width: 767px){.list{grid-template-columns:1fr;gap:60px}}

@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets'
+import profileImage from '../assets/profile-image.jpg'
+---
+
+<div class='px-20 pt-[120px] pb-[60px] max-md:px-6 max-md:pt-[100px]'>
+  <div class='flex items-start justify-center max-md:block'>
+    <figure
+      class='relative mr-[10%] aspect-[3/4] w-[30%] max-w-[440px] min-w-[320px] [box-shadow:0px_63px_154px_-20px_rgb(7_33_66_/_0.5)] max-md:mx-auto max-md:mb-10 max-md:w-[55%] max-md:max-w-[300px] max-md:min-w-0 max-md:[box-shadow:20px_10px_100px_-20px_rgb(7_33_66_/_0.5)]'
+    >
+      <Image
+        src={profileImage}
+        alt='板倉海'
+        widths={[300, 440, 880]}
+        sizes='(min-width: 768px) 440px, 80vw'
+        class='absolute inset-0 h-full w-full object-cover'
+      />
+    </figure>
+    <div class='w-[40%] min-w-[320px] text-left max-md:mx-auto max-md:w-full max-md:min-w-0'>
+      <h3 class='mb-5 text-[24px]'>板倉 海</h3>
+      <p>
+        1999年6月9日に生まれ、石川県で育ちました。大学進学と同時に大阪に住み始め、2022年に関西外国語大学を卒業。その後、新卒で派遣会社に就職しました。入社してすぐ、元々興味があったクリエイティブな仕事への気持ちが大きくなっていきました。そこで、1からやり直し挑戦するために仕事を辞め、デジタルハリウッドのWebデザイナー専攻にてWebデザインを学びました。Webサイトの構築をゼロからおこなうことによって、コーディングが楽しいという気持ちに気が付きました。現在は独学でフロントエンドについて学んでおり、今後は技術力をあげ、ユーザーが熱狂するようなWebサービス、アプリケーションを作っていきたいと考えております。
+      </p>
+    </div>
+  </div>
+</div>

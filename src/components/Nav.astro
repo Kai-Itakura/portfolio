@@ -1,0 +1,50 @@
+---
+const barClass = '[grid-area:1/1] block h-[3px] w-[35px] rounded-[3px] bg-current transition-transform duration-[400ms]'
+---
+
+<nav id='site-nav' class='group' data-open='false'>
+  <button
+    id='nav-toggle'
+    class='z-[200] ml-2.5 grid size-[42px] cursor-pointer place-items-center text-main md:hidden'
+    aria-expanded='false'
+    aria-controls='nav-list'
+  >
+    <span class={`${barClass} -translate-y-2.5 group-data-[open=true]:translate-y-0 group-data-[open=true]:rotate-45`}
+    ></span>
+    <span class={`${barClass} group-data-[open=true]:scale-0`}></span>
+    <span class={`${barClass} translate-y-2.5 group-data-[open=true]:translate-y-0 group-data-[open=true]:-rotate-45`}
+    ></span>
+    <span class='sr-only'>menu</span>
+  </button>
+  <ul
+    id='nav-list'
+    class='ml-[5vw] flex justify-end gap-[5vw] text-[18px] text-main [text-shadow:5px_2px_100px_rgb(7_33_66_/_0.8)] max-md:fixed max-md:inset-0 max-md:z-[100] max-md:ml-0 max-md:-translate-x-full max-md:bg-[rgba(58,61,62,0.9)] max-md:text-[20px] max-md:transition-transform max-md:duration-[400ms] max-md:group-data-[open=true]:grid max-md:group-data-[open=true]:translate-x-0 max-md:group-data-[open=true]:place-content-center max-md:group-data-[open=true]:gap-[100px] max-md:group-data-[open=true]:text-center'
+  >
+    <li><a class='nav-link' href='/'>Top</a></li>
+    <li><a class='nav-link' href='/works'>Works</a></li>
+    <li><a class='nav-link' href='/about'>About</a></li>
+  </ul>
+</nav>
+
+<script>
+  const nav = document.getElementById('site-nav')
+  const toggle = document.getElementById('nav-toggle')
+
+  const setOpen = (open: boolean) => {
+    if (!nav || !toggle) return
+    nav.dataset.open = String(open)
+    toggle.setAttribute('aria-expanded', String(open))
+    // モバイルメニュー表示中は背景のスクロールを固定する
+    document.body.classList.toggle('max-md:overflow-hidden', open)
+    document.body.classList.toggle('max-md:fixed', open)
+    document.body.classList.toggle('max-md:w-full', open)
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(nav?.dataset.open !== 'true')
+  })
+
+  document.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false))
+  })
+</script>

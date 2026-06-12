@@ -1,0 +1,32 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
+interface Props {
+  title: string
+  heroImage: ImageMetadata
+  lang: boolean
+}
+
+const { title, heroImage, lang } = Astro.props
+---
+
+<div class='relative h-screen w-full max-md:h-[500px]'>
+  <figure class='relative h-full w-full'>
+    <Image
+      src={heroImage}
+      alt={title}
+      widths={[768, 1280, 1920]}
+      sizes='100vw'
+      loading='eager'
+      class='absolute inset-0 h-full w-full object-cover brightness-[40%]'
+    />
+  </figure>
+  <h2
+    class={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-main capitalize max-md:text-[min(9vw,50px)] ${
+      lang ? 'font-kaisei' : ''
+    }`}
+  >
+    {title}
+  </h2>
+</div>

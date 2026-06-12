@@ -1,0 +1,23 @@
+---
+import Button from './Button.astro'
+import DefinitionList from './DefinitionList.astro'
+
+interface Props {
+  title: string
+  tools: string[]
+  time: string
+  url: string
+}
+
+const { title, tools, time, url } = Astro.props
+---
+
+<div class='py-[100px]'>
+  <dl class='flex flex-wrap px-[140px] max-md:block max-md:px-6'>
+    <DefinitionList title='client'>{title}</DefinitionList>
+    <DefinitionList title='tools' tools={tools} />
+    <DefinitionList title='creation time' ja>{time}</DefinitionList>
+    <DefinitionList title='about' ja><slot /></DefinitionList>
+  </dl>
+  <Button url={url} />
+</div>

@@ -1,0 +1,28 @@
+---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
+
+interface Props {
+  src: ImageMetadata
+  title: string
+  desc: string
+}
+
+const { src, title, desc } = Astro.props
+---
+
+<li class='w-1/4 max-md:mb-[60px] max-md:w-full max-md:last:mb-0'>
+  <figure
+    class='relative mx-auto mb-5 aspect-[4/3] w-[90%] [box-shadow:7px_9px_32px_-6px_rgb(7_33_66_/_0.5)] max-md:w-[55%]'
+  >
+    <Image
+      src={src}
+      alt={title}
+      widths={[300, 600]}
+      sizes='(max-width: 767px) 55vw, 25vw'
+      class='absolute inset-0 h-full w-full object-cover'
+    />
+  </figure>
+  <h3 class='mb-5 font-roboto text-[24px] uppercase'>{title}</h3>
+  <p class='mx-auto w-full text-left'>{desc}</p>
+</li>

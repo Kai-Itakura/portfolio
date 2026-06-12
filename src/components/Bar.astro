@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string
+  src: string
+  dataPer: number
+}
+
+const { title, src, dataPer } = Astro.props
+---
+
+<li class='w-full'>
+  <div class='mb-5 flex items-end'>
+    <div class='mr-5 flex aspect-square w-[50px] items-end max-md:w-[35px]'>
+      <img src={src} alt={title} class='h-full w-full object-contain' loading='lazy' />
+    </div>
+    <h4 class='font-roboto text-[20px]'>{title}</h4>
+  </div>
+  <div class='relative h-10 w-full rounded-[15px] bg-white text-left max-md:h-[25px]'>
+    <span
+      class='absolute top-0 left-0 h-full w-0 rounded-[15px] bg-linear-to-r from-[#facf63] to-[#F08275]'
+      data-percentage={dataPer}></span>
+    <p class='absolute top-0 left-[10%] z-[2] font-roboto text-[24px] max-md:-top-1 max-md:text-[18px]'>
+      <span data-num={dataPer}></span>
+    </p>
+  </div>
+</li>

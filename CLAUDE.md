@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Astro 5（完全静的出力）+ Tailwind CSS v4 で構築した個人ポートフォリオサイト。JS フレームワークは不使用で、インタラクションはすべて素の `<script>` で実装している。作品データはリポジトリ内の Content Collections（Markdown）で管理し、Cloudflare Workers の静的アセット配信でホスティングする。
 
-**移行メモ:** 旧構成は Next.js 13 + microCMS + Vercel。`src/content/works/` の `sample-work-*.md` は microCMS からエクスポートした実データに差し替えるまでの仮データ（要 microCMS 認証情報）。
+**移行メモ:** 旧構成は Next.js 13 + microCMS + Vercel。`src/content/works/` の `sample-work-*.md` は microCMS からエクスポートした実データに差し替えるまでの仮データ（要 microCMS 認証情報）。Cloudflare への初回デプロイは未実施で、本番（https://kai-itakura-portfolio.vercel.app）は移行前の旧サイトが稼働中。残タスクはリポジトリの issue を参照。
 
 ## コマンド
 

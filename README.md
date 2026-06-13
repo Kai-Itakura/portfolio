@@ -1,6 +1,6 @@
 # ポートフォリオサイト
 
-Astro + Tailwind CSS で構築したポートフォリオサイト（Cloudflare でのホスティングを想定。移行作業中のため、現在の本番 https://kai-itakura-portfolio.vercel.app は移行前の Next.js 版）。
+Astro + Tailwind CSS で構築したポートフォリオサイト。Cloudflare Workers でホスティング: https://portfolio.itakai199969-e42.workers.dev
 
 ![portfolioサイト](./portfolio.gif)
 

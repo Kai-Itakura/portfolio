@@ -76,6 +76,13 @@
   }
 }
 
+/* 初期ロード時にメニュー/ハンバーガーの transition が発火し（特に iOS Safari）、
+   メニューが一瞬開いて見える現象を防ぐ。Nav.astro が描画後に html.nav-ready を付与する */
+html:not(.nav-ready) #nav-list,
+html:not(.nav-ready) #nav-toggle span {
+  transition: none !important;
+}
+
 /* スクロール時のヘッダー背景（Header.astro のスクリプトから付け外しする） */
 .header-scrolled {
   background-color: rgb(58 61 62 / 0.5);

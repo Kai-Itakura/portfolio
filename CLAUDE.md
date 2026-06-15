@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Astro 5（完全静的出力）+ Tailwind CSS v4 で構築した個人ポートフォリオサイト。JS フレームワークは不使用で、インタラクションはすべて素の `<script>` で実装している。作品データはリポジトリ内の Content Collections（Markdown）で管理し、Cloudflare Workers の静的アセット配信でホスティングする。
 
-**移行メモ:** 旧構成は Next.js 13 + microCMS + Vercel。`src/content/works/` の `sample-work-*.md` は microCMS からエクスポートした実データに差し替えるまでの仮データ（要 microCMS 認証情報）。Cloudflare への初回デプロイは未実施で、本番（https://kai-itakura-portfolio.vercel.app）は移行前の旧サイトが稼働中。残タスクはリポジトリの issue を参照。
+**移行メモ:** 旧構成は Next.js 13 + microCMS + Vercel。`src/content/works/` の `sample-work-*.md` は microCMS からエクスポートした実データに差し替えるまでの仮データ（要 microCMS 認証情報）。本番は Cloudflare Workers（https://portfolio.itakai199969-e42.workers.dev）で稼働中。残タスクはリポジトリの issue を参照。
 
 ## コマンド
 
@@ -42,7 +42,7 @@ npm run deploy     # ビルドして wrangler で Cloudflare にデプロイ
 - **スタイリング:** Tailwind CSS v4。設定ファイルはなく、テーマトークン（`--color-main`、`--color-accent`、`--font-pacifico` 等）は `src/styles/global.css` の `@theme` ブロックで定義。要素セレクタへのベーススタイル（body のフォント・背景、h2 の Pacifico、a の hover 等）も同ファイルの `@layer base` にある。旧 SCSS のピクセル値は `text-[80px]` のような arbitrary value でそのまま移植している
 - **ブレークポイント:** モバイル（767px 以下）のスタイルは `max-md:` プレフィックス。旧 SCSS の `mq(sp)` に対応する
 - **フォーマット（Prettier）:** セミコロンなし、シングルクォート（JSX も）、末尾カンマなし、インデント2スペース、print width 120
-- **デプロイ:** `wrangler.jsonc` で `dist/` を Cloudflare Workers の静的アセットとして配信。`astro.config.mjs` の `site` は OG/canonical/sitemap の URL に使われるため、Cloudflare の本番ドメインが決まったら更新が必要
+- **デプロイ:** `wrangler.jsonc` で `dist/` を Cloudflare Workers の静的アセットとして配信。`astro.config.mjs` の `site`（現在は workers.dev の URL）は OG/canonical/sitemap の URL に使われるため、カスタムドメインに変更する際は更新が必要
 
 ## ソース構成
 

@@ -15,9 +15,12 @@ npm run dev        # 開発サーバーを起動（localhost:4321）
 npm run build      # 本番ビルド（dist/ に出力。sitemap も自動生成）
 npm run preview    # ビルド結果をローカル配信
 npm run deploy     # ビルドして wrangler で Cloudflare にデプロイ
+npm run check      # astro check（型・テンプレートの診断）
+npm run format     # Prettier で全ファイルを整形
+npm run format:check  # Prettier 整形差分の検証（書き込みなし）
 ```
 
-テストランナーと lint は未設定。ビルドが通ることが検証手段。
+テストランナーは未設定。検証は `npm run check`（型）+ `npm run format:check`（整形）+ `npm run build` で行う。CI（`.github/workflows/ci.yml`）が PR / main への push でこの3つを実行する。
 
 ## 環境変数
 

@@ -1,0 +1,8 @@
+# 生成物・依存・バイナリはフォーマット対象外
+dist/
+.astro/
+.wrangler/
+node_modules/
+package-lock.json
+src/assets/
+public/

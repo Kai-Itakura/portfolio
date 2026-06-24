@@ -9,11 +9,11 @@ tools:
 time: 1ヶ月
 url: 'https://kai-itakura.sakura.ne.jp'
 lang: true
-topImage: ../../assets/works/sugutabe-top.png
+topImage: ../../assets/works/sugutabe-top.webp
 heroImage: ../../assets/works/sugutabe-hero.jpg
-mockUpImage: ../../assets/works/sugutabe-mockup.png
-image1: ../../assets/works/sugutabe-image1.png
-image2: ../../assets/works/sugutabe-image2.png
+mockUpImage: ../../assets/works/sugutabe-mockup.webp
+image1: ../../assets/works/sugutabe-image1.webp
+image2: ../../assets/works/sugutabe-image2.webp
 ---
 
 オーガニック食材のLPサイトを作成しました。LPサイトのゴールは他のページに遷移させずに迷いなくコンバージョンさせることなので、そのページ内で物語を完結させるよう心がけました。

@@ -11,11 +11,11 @@ tools:
 time: 1ヶ月半
 url: 'https://sixhelmets.com'
 lang: false
-topImage: ../../assets/works/sixhelmets-top.png
+topImage: ../../assets/works/sixhelmets-top.webp
 heroImage: ../../assets/works/sixhelmets-hero.jpg
-mockUpImage: ../../assets/works/sixhelmets-mockup.png
-image1: ../../assets/works/sixhelmets-image1.png
-image2: ../../assets/works/sixhelmets-image2.png
+mockUpImage: ../../assets/works/sixhelmets-mockup.webp
+image1: ../../assets/works/sixhelmets-image1.webp
+image2: ../../assets/works/sixhelmets-image2.webp
 ---
 
 株式会社sixhelmets様のブランディングサイトの作成をさせて頂きました。デザインからコーディング、ホスティングまで全てを担当させていただきました。大阪の江坂にお店を構える古着屋さんで、コンセプトはアメリカン。ファーストビューにはお店の雰囲気が一目で分かるようにバイクや店内の画像を3枚スライドにして見せています。

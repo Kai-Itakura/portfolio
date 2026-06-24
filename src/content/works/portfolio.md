@@ -13,10 +13,10 @@ time: 3週間
 url: 'https://kai-itakura-portfolio.vercel.app/'
 lang: false
 topImage: ../../assets/works/portfolio-top.gif
-heroImage: ../../assets/works/portfolio-hero.png
-mockUpImage: ../../assets/works/portfolio-mockup.png
-image1: ../../assets/works/portfolio-image1.png
-image2: ../../assets/works/portfolio-image2.png
+heroImage: ../../assets/works/portfolio-hero.webp
+mockUpImage: ../../assets/works/portfolio-mockup.webp
+image1: ../../assets/works/portfolio-image1.webp
+image2: ../../assets/works/portfolio-image2.webp
 ---
 
 Next.js/Reactを使って作成したJamstack構成のポートフォリオサイトです。
